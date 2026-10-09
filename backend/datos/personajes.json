@@ -1,0 +1,31 @@
+[
+  {
+    "nombre": "adfasf",
+    "raza": "Humano",
+    "clase": "Mago",
+    "rasgos": [
+      "Inteligente"
+    ],
+    "historia": "afsda",
+    "atributos": {
+      "fuerza": 6,
+      "magia": 8,
+      "agilidad": 1
+    }
+  },
+  {
+    "nombre": "efafadf",
+    "raza": "Elfo",
+    "clase": "Mago",
+    "rasgos": [
+      "Inteligente"
+    ],
+    "historia": "zxc<c",
+    "atributos": {
+      "fuerza": 6,
+      "magia": 6,
+      "agilidad": 3
+    }
+  },
+  null
+]

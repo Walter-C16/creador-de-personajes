@@ -1,38 +1,517 @@
-.App {
-  text-align: center;
+/* Estilos generales */
+
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #171724;
+  color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 60px 24px;
+}
+
+h1 {
+  text-align: center;
+  margin: 0 0 50px;
+  color: #e5b76a;
+}
+
+
+/* Pantalla principal y casilleros */
+
+.contenedor-casilleros {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.casillero {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+
+  border: 2px solid #7850ac;
+  border-radius: 12px;
+  background: #29293d;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+/* Casillero vacío */
+
+.casillero.vacio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.casillero.vacio:hover {
+  background: #644092;
+  border-color: #b18be4;
+  transform: translateY(-4px);
+}
+
+.simbolo-mas {
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+
+/* Casillero ocupado */
+
+.casillero.ocupado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 10px;
+  gap: 5px;
+  text-align: center;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.casillero.ocupado:hover {
+  border-color: #b18be4;
+  background: #34304b;
+}
+
+.boton-detalle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+
+  padding: 0;
+  gap: 5px;
+
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.boton-detalle:focus-visible {
+  outline: 2px solid #e5b76a;
+  outline-offset: -2px;
+}
+
+.imagen-personaje {
+  display: block;
+  width: 100%;
+  max-height: 140px;
+  min-height: 0;
+  flex-shrink: 0;
+
+  object-fit: cover;
+  object-position: center 5%;
+
+  border-radius: 8px;
+}
+
+.casillero.ocupado h2 {
+  width: 100%;
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.casillero.ocupado p {
+  width: 100%;
+  margin: 0;
+
+  font-size: 12px;
+  color: #d3ccdf;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.casillero.ocupado small {
+  width: 100%;
+  margin: 0;
+
+  font-size: 11px;
+  color: #b9a7d4;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* Botón eliminar personaje */
+
+.boton-eliminar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+
+  width: 28px;
+  height: 28px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 6px;
+
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+
+  font-size: 24px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.boton-eliminar:hover {
+  background: #b83232;
+  transform: scale(1.08);
+}
+
+
+/* Formulario */
+
+.formulario-contenedor {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+
+  border: 1px solid #777;
+  border-radius: 6px;
+
+  background: #29293d;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #a77bdb;
+  outline-offset: 2px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #aaa9b8;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+
+/* Fieldsets */
+
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  min-width: 0;
+  padding: 16px;
+
+  border: 1px solid #55546b;
+  border-radius: 8px;
+}
+
+legend {
+  padding: 0 8px;
+  color: #e5b76a;
+  font-weight: bold;
+}
+
+fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #a77bdb;
+  cursor: pointer;
+}
+
+
+/* Selector de atributos */
+
+.selector-atributo {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.atributo-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+.selector-atributo input[type="range"] {
+  display: block;
+  width: 100%;
+
+  accent-color: #a77bdb;
+  cursor: pointer;
+}
+
+
+/* Validaciones */
+
+.mensaje-error {
+  margin: 0;
+  padding: 4px 0;
+
+  color: #ff7777;
+  font-size: 14px;
+}
+
+
+/* Botones del formulario */
+
+.acciones-formulario {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.acciones-formulario button {
+  flex: 1;
+  padding: 12px;
+
+  border: 1px solid #7850ac;
+  border-radius: 6px;
+
+  background: #644092;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.acciones-formulario button:hover:not(:disabled) {
+  background: #7850ac;
+}
+
+.acciones-formulario button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* Pantalla de detalle de personaje */
+
+.detalle-personaje {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.boton-volver {
+  padding: 10px 18px;
+  border: 1px solid #7850ac;
+  border-radius: 8px;
+  background: #29293d;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.boton-volver:hover {
+  background: #644092;
+}
+
+.detalle-contenido {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.detalle-imagen {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.detalle-columna-informacion {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.detalle-informacion,
+.detalle-historia {
+  padding: 24px;
+  background: #29293d;
+  border: 1px solid #55546b;
+  border-radius: 12px;
+}
+
+.detalle-informacion h2,
+.detalle-historia h2 {
+  color: #e5b76a;
+  font-size: 20px;
+  margin-top: 24px;
+}
+
+.detalle-informacion h2:first-child {
+  margin-top: 0;
+}
+
+.detalle-atributo {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #55546b;
+  text-transform: capitalize;
+}
+
+.detalle-rasgos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.etiqueta-rasgo {
+  padding: 6px 12px;
+  background: #644092;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.detalle-historia {
+  margin-top: 0;
+  overflow-wrap: anywhere;
+}
+
+.detalle-historia p {
+  white-space: pre-wrap;
+}
+
+
+/* Diseño responsive */
+
+@media (max-width: 600px) {
+  .app {
+    padding: 30px 12px;
   }
-  to {
-    transform: rotate(360deg);
+
+  h1 {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .contenedor-casilleros {
+    gap: 10px;
+  }
+
+  .casillero.ocupado {
+    padding: 5px;
+    gap: 3px;
+  }
+
+  .casillero.ocupado h2 {
+    font-size: 12px;
+  }
+
+  .casillero.ocupado p {
+    font-size: 10px;
+  }
+
+  .casillero.ocupado small {
+    font-size: 9px;
+  }
+
+  .simbolo-mas {
+    font-size: 40px;
+  }
+
+  .boton-eliminar {
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    font-size: 18px;
+  }
+
+  .formulario-contenedor {
+    max-width: 100%;
+  }
+
+  .detalle-contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle-imagen {
+    max-width: 300px;
+    margin: 0 auto;
   }
 }

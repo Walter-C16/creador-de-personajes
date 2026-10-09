@@ -1,70 +1,177 @@
-# Getting Started with Create React App
+# Creador de Personajes RPG
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web desarrollada con **React JS y Node.js** como trabajo practico de la EFA Desarrollo Web. Esta permite crear, visualizar y eliminar personajes de un hipotético juego RPG.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- Crear hasta tres personajes.
+- Guardar los personajes mediante el backend en un archivo JSON.
 
-### `npm start`
+## Tecnologías utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Frontend**
+- React JS
+- JavaScript
+- HTML (JSX)
+- CSS
+- Create React App
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Backend**
+- Node.js
+- Express
+- API REST
+- JSON para persistencia
 
-### `npm test`
+**Herramientas**
+- npm Workspaces
+- Concurrently
+- Git y GitHub
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Requisitos previos
 
-### `npm run build`
+Antes de ejecutar el proyecto, instalar:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Node.js](https://nodejs.org/).
+- npm (incluido con Node.js).
+- Git.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Verificar la instalación ejecutando:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+node -v
+npm -v
+```
 
-### `npm run eject`
+## Instalación
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Clonar el repositorio
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/TU_USUARIO/creador-de-personajes.git
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Ingresar a la carpeta del proyecto:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd creador-de-personajes
+```
 
-## Learn More
+También se puede descargar el repositorio como ZIP desde GitHub y descomprimirlo.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2. Instalar las dependencias
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Desde la carpeta raíz del proyecto:
 
-### Code Splitting
+```bash
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Gracias a npm Workspaces, este comando instala las dependencias necesarias del frontend y del backend.
 
-### Analyzing the Bundle Size
+### 3. Ejecutar la aplicación
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Desde la raíz del proyecto:
 
-### Making a Progressive Web App
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Este comando utiliza **Concurrently** para iniciar ambos servidores:
 
-### Advanced Configuration
+| Servicio | Dirección |
+|---|---|
+| Frontend (React) | http://localhost:3000 |
+| Backend (Express) | http://localhost:3001 |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Abrir en el navegador:
 
-### Deployment
+**http://localhost:3000**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+La aplicación debería mostrar la pantalla principal con los tres casilleros para crear personajes.
 
-### `npm run build` fails to minify
+### 4. Detener la aplicación
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+En la terminal donde está ejecutándose el proyecto, presionar:
+
+`Ctrl + C`
+
+Esto detendrá ambos servidores.
+
+## Ejecución por separado
+
+También es posible ejecutar cada servicio individualmente.
+
+**Iniciar únicamente el frontend:**
+
+```bash
+npm run frontend
+```
+
+**Iniciar únicamente el backend:**
+
+```bash
+npm run backend
+```
+
+Para ejecutar ambos de esta manera, utilizar dos terminales distintas.
+
+## Endpoints de la API
+
+El backend expone los siguientes endpoints:
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/saludo` | Verificar el funcionamiento del servidor |
+| GET | `/api/personajes` | Obtener los tres casilleros |
+| POST | `/api/personajes/:indice` | Crear un personaje |
+| DELETE | `/api/personajes/:indice` | Eliminar un personaje |
+
+El parámetro `indice` identifica un casillero y admite los valores `0`, `1` y `2`.
+
+Para verificar el funcionamiento del backend, ingresar a:
+
+http://localhost:3001/api/personajes
+
+Si todavía no se crearon personajes, la respuesta será:
+
+```json
+[
+  null,
+  null,
+  null
+]
+```
+
+## Estructura del proyecto
+
+```text
+creador-de-personajes/
+├── backend/
+│   ├── datos/
+│   │   └── personajes.json
+│   ├── services/
+│   │   └── servicioPersonajes.js
+│   ├── servidor.js
+│   └── package.json
+├── public/
+├── src/
+│   ├── assets/
+│   │   └── imagenes/
+│   ├── components/
+│   │   ├── Inicio.jsx
+│   │   ├── CasilleroPersonaje.jsx
+│   │   ├── FormularioPersonaje.jsx
+│   │   ├── SelectorRasgos.jsx
+│   │   ├── SelectorAtributo.jsx
+│   │   └── DetallePersonaje.jsx
+│   ├── servicios/
+│   │   └── servicioPersonajes.js
+│   ├── utils/
+│   │   └── imagenesPersonajes.js
+│   ├── setupProxy.js
+│   ├── App.js
+│   └── App.css
+├── package.json
+├── package-lock.json
+└── README.md
+```
